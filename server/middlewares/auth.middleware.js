@@ -39,3 +39,8 @@ export const authMiddleware = async (req, res, next) => {
     return res.status(403).json({ message: "Invalid token" });
   }
 };
+
+export const checkAuth = (req, res, next) => {
+  console.log(req.cookies, "middleware");
+  next();
+};

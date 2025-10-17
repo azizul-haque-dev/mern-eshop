@@ -6,9 +6,11 @@ import App from "./App.tsx";
 import "./index.css";
 import LoginPage from "./pages/auth/LoginPage.tsx";
 import RegisterPage from "./pages/auth/RegisterPage.tsx";
+import Profilepage from "./pages/Profilepage.tsx";
 const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
   { path: "/register", element: <RegisterPage /> },
+  { path: "/profile", element: <Profilepage /> },
   {
     path: "/",
     element: <App />,

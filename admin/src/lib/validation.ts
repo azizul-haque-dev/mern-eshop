@@ -14,7 +14,14 @@ export const registerSchema = z.object({
     email: z.string().email({message:'Please enter a valid email address'}),
     password: z.string().min(6,{
         message:'Password must be at least 6 characters long'
+    }),
+    role: z.enum(['admin','user','deleveryman'],{
+        errorMap: () => ({
+            message: 'Please select a role'
+        })
     })
 
 
 })
+
+

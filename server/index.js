@@ -1,3 +1,4 @@
+import cookiePerser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -13,6 +14,7 @@ const port = process.env.PORT || 8000;
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+app.use(cookiePerser());
 
 // cors configuration
 app.use(

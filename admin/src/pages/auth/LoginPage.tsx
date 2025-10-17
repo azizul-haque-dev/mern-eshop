@@ -31,7 +31,33 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const onSubmit = async () => {};
+  const onSubmit = async (e) => {
+    const email = "azizul@example.com";
+    const password = "StrongPass123!";
+
+    try {
+      const res = await fetch("http://localhost:8000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        }),
+        credentials: "include"
+      });
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  onSubmit();
 
   const form = useForm<FormData>({
     resolver: zodResolver(loginSchema),
