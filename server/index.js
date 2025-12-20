@@ -1,7 +1,8 @@
-import express from "express";
-import dotenv from "dotenv";
-import { errorHandler } from "./middleware/errorMiddleware.js";
 import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
+import { errorHandler } from "./middleware/errorMiddleware.js";
+import authRoutes from "./routes/auth.route.js";
 
 // Load env vars
 dotenv.config();
@@ -21,7 +22,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:8081", // iOS simulator
   "http://10.0.2.2:8081", // Android emulator
-  "http://10.0.2.2:8000", // Android emulator direct access
+  "http://10.0.2.2:8000" // Android emulator direct access
   // "http://192.168.1.100:8081", // Replace with your actual local IP for physical devices
 ].filter(Boolean); // Remove any undefined values
 
@@ -44,7 +45,7 @@ app.use(
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 
@@ -55,6 +56,8 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 // Debug middleware for order routes
 
 // Routes
+
+app.use("/api/auth", authRoutes);
 
 // API Documentation
 
@@ -70,7 +73,7 @@ app.get("/", (req, res) => {
     endpoints: {
       documentation: `/api-docs`,
       health: `/health`,
-      api: `/api/v1`,
+      api: `/api/v1`
     },
     features: [
       "🔐 JWT Authentication",
@@ -79,21 +82,21 @@ app.get("/", (req, res) => {
       "👥 User Management",
       "☁️ Cloudinary Integration",
       "📊 MongoDB Database",
-      "📖 Swagger Documentation",
+      "📖 Swagger Documentation"
     ],
     applications: {
       "Admin Dashboard": process.env.ADMIN_URL || "http://localhost:5173",
       "Client Website": process.env.CLIENT_URL || "http://localhost:3000",
       "Mobile App": "React Native Application",
-      "API Server": `http://localhost:${PORT} (You are here)`,
+      "API Server": `http://localhost:${PORT} (You are here)`
     },
     quickStart: {
       development: "npm run dev",
       production: "npm start",
-      documentation: `Visit http://localhost:${PORT}/api-docs for API documentation`,
+      documentation: `Visit http://localhost:${PORT}/api-docs for API documentation`
     },
     message:
-      "🚀 BabyShop API is running successfully! Remove this placeholder and start building your API endpoints.",
+      "🚀 BabyShop API is running successfully! Remove this placeholder and start building your API endpoints."
   };
 
   res.json(projectInfo);
@@ -105,7 +108,7 @@ app.get("/health", (req, res) => {
     status: "healthy",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    environment: process.env.NODE_ENV || "development",
+    environment: process.env.NODE_ENV || "development"
   });
 });
 
